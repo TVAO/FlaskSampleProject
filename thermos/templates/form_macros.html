@@ -1,0 +1,21 @@
+
+<!-- Check for errors in field -->
+
+{% macro render_field(field) %}
+    <tr {% if field.errors %} class="error" {% endif %}>
+        <td> {{ field.label  }}</td>
+        <!-- Add arguments to call of field (e.g. size = 50 in field to HTML tag) -->
+        <!-- Output from field filtered with safe (no escaping) -->
+        <td> {{ field(**kwargs)|safe }} </td>
+    </tr>
+    <tr class="error">
+        <td></td>
+        <td>
+            <ul>
+                {% for error in field.errors %}
+                    <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+{% endmacro %}

@@ -9,8 +9,8 @@ class BookmarkForm(Form):
     """"
         Class represents the form used to add bookmarks
     """
-    url = URLField('url', validators=[DataRequired, url()])
-    description = StringField('description')
+    url = URLField('The URL for your bookmark:', validators=[DataRequired, url()])
+    description = StringField('Add an optional description:')
 
     def validate(self):
         # Validate URL contains HTTP
