@@ -1,9 +1,22 @@
 
 # Main entry point of web app used to start up Flask
 
-from flask import Flask, render_template, url_for
+from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
+from logging import DEBUG
 
 app = Flask(__name__)
+app.logger.setLevel(DEBUG)
+
+bookmarks = []
+
+
+def store_bookmark(url):
+    bookmarks.append(dict(
+        url=url,
+        user="tvao",
+        date=datetime.utcnow
+    ))
 
 
 @app.route('/')
@@ -12,12 +25,17 @@ def index():
     """"
     Renders the default index template
     """
-    return ender_template('index.html')
+    return render_template('index.html')
 
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add():
-    return render_template("add.html")
+    if request.method == "POST":
+        url = request.form['url']
+        store_bookmark(url)
+        app.logger.debug('stored url: ' + url)
+        return redirect(url_for('index'))
+    return render_template('add.html')
 
 
 @app.errorhandler(404)
@@ -31,5 +49,5 @@ def server_error(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
 
