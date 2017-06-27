@@ -41,14 +41,14 @@ def index():
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     form = BookmarkForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit():  # Check request and validate content
         url = form.url.data
         description = form.description.data
         store_bookmark(url, description)
-        flash("Stored bookmark '{}'".format(description))
+        flash("Stored '{}'".format(description))
         app.logger.debug('stored url: ' + url)
         return redirect(url_for('index'))
-    return render_template('add.html', form=form)
+    return render_template('add.html', form=form)  # Get request or error
 
 
 @app.errorhandler(404)
