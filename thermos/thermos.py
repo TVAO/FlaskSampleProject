@@ -4,6 +4,7 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from logging import DEBUG
+from forms import BookmarkForm
 
 app = Flask(__name__)
 app.logger.setLevel(DEBUG)
@@ -15,9 +16,10 @@ bookmarks = []
 app.config["SECRET_KEY"] = b'\x12\x1d\x9c\xfd\x8e\xd5\r\xdb\x81\x99t\x98\x01.2\xe2Ra\x07\x14\x92.\tD'
 
 
-def store_bookmark(url):
+def store_bookmark(url, description):
     bookmarks.append(dict(
         url=url,
+        description=description,
         user="tvao",
         date=datetime.utcnow
     ))
@@ -38,13 +40,15 @@ def index():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    if request.method == "POST":
-        url = request.form['url']
-        store_bookmark(url)
-        flash("Stored bookmark '{}'".format(url))
+    form = BookmarkForm()
+    if form.validate_on_submit():
+        url = form.url.data
+        description = form.description.data
+        store_bookmark(url, description)
+        flash("Stored bookmark '{}'".format(description))
         app.logger.debug('stored url: ' + url)
         return redirect(url_for('index'))
-    return render_template('add.html')
+    return render_template('add.html', form=form)
 
 
 @app.errorhandler(404)
