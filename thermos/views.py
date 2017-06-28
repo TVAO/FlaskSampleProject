@@ -3,13 +3,13 @@
 
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, login_user, current_user, logout_user
-from thermos import app, db, login_manager
-from forms import BookmarkForm, LoginForm, SignupForm
-from models import User, Bookmark
+#from thermos import app, db, login_manager
+#from forms import BookmarkForm, LoginForm, SignupForm
+#from models import User, Bookmark
 # New Python 3 import
-#from . import app, db, login_manager
-#from .forms import BookmarkForm, LoginForm, SignupForm
-#from .models import User, Bookmark
+from . import app, db, login_manager
+from .forms import BookmarkForm, LoginForm, SignupForm
+from .models import User, Bookmark
 
 
 @login_manager.user_loader
