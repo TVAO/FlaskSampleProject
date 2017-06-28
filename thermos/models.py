@@ -34,6 +34,17 @@ class Bookmark(db.Model):
     def newest(num):
         return Bookmark.query.order_by(desc(Bookmark.date)).limit(num)
 
+    # Convert comma separated tags to list of string tag names
+    @property
+    def tags(self):
+        return ",".join([t.name for t in self._tags])
+
+    # Insert new tags into db
+    @tags.setter
+    def tags(self, string):
+        if string:
+            self._tags = [Tag.get_or_create(name) for name in string.split(',')]
+
     # Clear printing and logging of values
     def __repr__(self):
         return "<Bookmark '{}': '{}'>".format(self.description, self.url)
@@ -69,6 +80,18 @@ class User(db.Model, UserMixin):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.column(db.String(25), nullable=False, unique=True, index=True)
+
+    # Look for tag or create new
+    @staticmethod
+    def get_or_create(name):
+        try:
+            return Tag.query.filter_by(name=name).one()
+        except:
+            return Tag(name=name)
+
+    @staticmethod
+    def all():
+        return Tag.query.all()
 
     def __repr__(self):
         return self.name

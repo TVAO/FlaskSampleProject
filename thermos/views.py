@@ -5,11 +5,11 @@ from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_required, login_user, current_user, logout_user
 from thermos import app, db, login_manager
 from forms import BookmarkForm, LoginForm, SignupForm
-from models import User, Bookmark
+from models import User, Bookmark, Tag
 # New Python 3 import
 #from . import app, db, login_manager
 #from .forms import BookmarkForm, LoginForm, SignupForm
-#from .models import User, Bookmark
+#from .models import User, Bookmark, Tag
 
 
 @login_manager.user_loader
@@ -33,7 +33,7 @@ def add():
     if form.validate_on_submit():  # Check request and validate content
         url = form.url.data
         description = form.description.data
-        bm = Bookmark(user=current_user, url=url, description=description)
+        bm = Bookmark(user=current_user, url=url, description=description, tags=tags)
         db.session.add(bm)
         db.session.commit()
         flash("Stored '{}'".format(description))
