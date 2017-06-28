@@ -9,6 +9,13 @@ from thermos import db
 #from . import db
 
 
+# Junction table between tags and bookmarks
+tags = db.Table('bookmark_tag',
+                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+                db.Column('bookmark_id', db.Integer, db.ForeignKey('bookmark.id'))
+)
+
+
 # Database entities used to generate tables in SQL Alchemy
 class Bookmark(db.Model):
 
@@ -53,3 +60,10 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.column(db.String(25), nullable=False, unique=True, index=True)
+
+    def __repr__(self):
+        return self.name
