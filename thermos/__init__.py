@@ -33,13 +33,9 @@ toolbar = DebugToolbarExtension(app)
 # For display timestamps
 moment = Moment(app)
 
-# Old Python 2 import
-import models
-import views
-
-# New Python 3 import
-#from . import models
-#from . import views
+# All views inside blueprint registered in app and prefixed with /auth routing
+from .auth import auth as auth_blueprint
+app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
 
 
