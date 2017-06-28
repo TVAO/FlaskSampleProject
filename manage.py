@@ -36,7 +36,7 @@ def insert_data():
     testUser = User(username="test", email="test@example.com", password="test")
     db.session.add(testUser)
     db.session.commit()
-    print 'Initialized the database'
+    print('Initialized the database')
 
 
 @manager.command
