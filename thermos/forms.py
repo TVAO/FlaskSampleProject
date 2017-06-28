@@ -30,6 +30,7 @@ class BookmarkForm(FlaskForm):
 
         return True
 
+
 class LoginForm(FlaskForm):
     username = StringField('Your Username:', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])

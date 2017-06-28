@@ -22,15 +22,16 @@ db = SQLAlchemy(app)
 # Configure authentication
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
+login_manager.login_view = "login"
 login_manager.init_app(app)
 
 # Old Python 2 import
-#import models
-#import views
+import models
+import views
 
 # New Python 3 import
-from . import models
-from . import views
+#from . import models
+#from . import views
 
 
 

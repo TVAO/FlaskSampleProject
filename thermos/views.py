@@ -2,19 +2,19 @@
 # Views (i.e. similar to controllers in MVC) used to control HTTP requests and responses
 
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_required, login_user
-#from thermos import app, db
-#from forms import BookmarkForm
-#from models import User, Bookmark
+from flask_login import login_required, login_user, current_user
+from thermos import app, db, login_manager
+from forms import BookmarkForm
+from models import User, Bookmark
 # New Python 3 import
-from . import app, db
-from .forms import BookmarkForm, LoginForm
-from .models import User, Bookmark
+#from . import app, db, login_manager
+#from .forms import BookmarkForm, LoginForm
+#from .models import User, Bookmark
 
 
-# Fake login
-def logged_in_user():
-    return User.query.filter_by(username='tvao').first()
+@login_manager.user_loader
+def load_user(userid):
+    return USer.query.get(int(userid))
 
 
 @app.route('/')
@@ -23,7 +23,7 @@ def index():
     """"
     Renders the default index template
     """
-    return render_template('index.html', new_bookmarks=models.Bookmark.newest(5))
+    return render_template('index.html', new_bookmarks=Bookmark.newest(5))
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -33,7 +33,7 @@ def add():
     if form.validate_on_submit():  # Check request and validate content
         url = form.url.data
         description = form.description.data
-        bm = Bookmark(user=logged_in_user(), url=url, description=description)
+        bm = Bookmark(user=current_user, url=url, description=description)
         db.session.add(bm)
         db.session.commit()
         flash("Stored '{}'".format(description))
@@ -58,6 +58,7 @@ def login():
         if user is not None:
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
+            # Redirect to intended page (e.g. add bookmark page) or index
             return redirect(request.args.get('next') or url_for('index'))
         flash('Incorrect username or password.')
     return render_template('login.html', form=form)
