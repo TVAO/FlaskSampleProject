@@ -20,9 +20,6 @@ from forms import BookmarkForm
 #from .models import Bookmark
 import models
 
-def new_bookmarks(num):
-    return []
-
 
 @app.route('/')
 @app.route('/index')
@@ -30,7 +27,7 @@ def index():
     """"
     Renders the default index template
     """
-    return render_template('index.html', new_bookmarks=new_bookmarks(5))
+    return render_template('index.html', new_bookmarks=models.Bookmark.newest(5))
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -41,6 +38,7 @@ def add():
         description = form.description.data
         bm = models.Bookmark(url=url, description=description)
         db.session.add(bm)
+        db.session.commit()
         flash("Stored '{}'".format(description))
         app.logger.debug('stored url: ' + url)
         return redirect(url_for('index'))

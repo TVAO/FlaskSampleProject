@@ -1,11 +1,11 @@
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms.fields import StringField
 from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired, url
 
 
-class BookmarkForm(Form):
+class BookmarkForm(FlaskForm):
     """"
         Class represents the form used to add bookmarks
     """
@@ -19,7 +19,7 @@ class BookmarkForm(Form):
                 self.url.data = "http://" + self.url.data
 
         # Check other validators
-        if not Form.validate(self):
+        if not FlaskForm.validate(self):
             return False
 
         # Ensure description is not empty
