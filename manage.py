@@ -1,5 +1,5 @@
 
-# Manage database setup
+# Manage database setup and run server (admin interface)
 
 from thermos import app, db
 from thermos.models import User
