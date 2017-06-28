@@ -71,7 +71,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/signup". methods=['GET, POST'])
+@app.route("/signup", methods=['GET, POST'])
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
