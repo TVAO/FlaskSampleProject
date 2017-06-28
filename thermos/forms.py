@@ -2,7 +2,7 @@
 # HTML form objects used to retrieve and post user data
 
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField
+from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired, url
 
@@ -29,3 +29,9 @@ class BookmarkForm(FlaskForm):
             self.description.data = self.url.data
 
         return True
+
+class LoginForm(FlaskForm):
+    username = StringField('Your Username:', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Keep me logged in')
+    submit = SubmitField('Log In')
