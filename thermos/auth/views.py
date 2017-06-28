@@ -1,10 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user
 
-from . import auth
-from .. import db
-from ..models import User
-from .forms import LoginForm, SignupForm
+from . import auth  # Import blueprint taking place as app object
+from .. import db  # Import db from parent
+from ..models import User  # Import user from parent module
+from .forms import LoginForm, SignupForm  # Forms module inside blueprint
 
 # Views (i.e. MVC Controllers) used to handle HTTP requests and issue responses
 
