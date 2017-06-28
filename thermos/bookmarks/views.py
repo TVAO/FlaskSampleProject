@@ -52,6 +52,7 @@ def delete(bookmark_id):
         db.session.delete(bookmark)
         db.session.commit()
         flash("Deleted '{}'".format(bookmark.description))
+        # .user local view
         return redirect(url_for('.user', username=current_user.username))
     else:
         flash("Please confirm deleting the bookmark.")

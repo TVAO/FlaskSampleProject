@@ -1,3 +1,7 @@
+
+# Index page and error handler views
+# Actions registered on app via .app decorator
+
 from flask import render_template
 
 from . import main
@@ -30,6 +34,8 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 
+# Make tags available in all templates
+# Executed before each template render
 @main.app_context_processor
 def inject_tags():
     return dict(all_tags=Tag.all)
