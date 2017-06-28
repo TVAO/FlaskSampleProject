@@ -38,7 +38,9 @@ Thermos -- {{ title }}
 <script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"> </script>
 <script>
     $(document).ready(function() {
+        // Jinja2 expression executed server-side: apply filters from tags to names
         var _tags = {{ all_tags() | map(attribute='name') | list | tojson | safe }};
+        // Make tagging input user friendly with commas or spaces
         $('#tags').select2({tags: _tags, tokenSeparators: [",", " "]});
     });
 </script>
