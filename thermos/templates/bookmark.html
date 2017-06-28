@@ -2,14 +2,18 @@
 <!-- Single Bookmark Page -->
 
 <div class="bookmark">
+    <!-- Bookmark tag and description -->
     <a class="header" href="{{ bookmark.url }}">
         <h3 class="description">
+            <!-- Filter used to transform description -->
             {{ bookmark.description|truncate(50, killwords=True) }}
         </h3>
         <span class="url">
             {{ bookmark.url|truncate(50, killwords=True) }}
         </span>
     </a>
+
+    <!-- Info about bookmark (added by who, list of bookmarks -->
     <div class="info">
         <span class="tags">
                 {% if bookmark.tags %}
@@ -22,6 +26,8 @@
         Added by <a href="{{ url_for('user', username=bookmark.user.username) }}">
             {{ bookmark.user.username }}
         </a>
+
+        <!-- Call JS moment library to present neet date format -->
         {{ moment(bookmark.date).fromNow() }}.
         {% if current_user == bookmark.user and not nolinks %}
             <span class="editlinks">

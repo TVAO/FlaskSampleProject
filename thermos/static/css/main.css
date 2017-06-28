@@ -216,7 +216,8 @@ ul.bookmarks {
     padding-left: 0;
 }
 
-ul.bookmarks li {
+/* Single bookmark */
+ul.bookmark {
     padding-bottom: .5em;
     border-top: 1px solid #7EA6BF;
     padding: 1em 0;
