@@ -160,7 +160,7 @@ a {
     color: #8F540D;
 }
 
-a:hover {
+a:hover, aside a:hover, aside a:visited:hover {
     color: #D39447;
 }
 
@@ -194,6 +194,39 @@ h1, h2, h3, h4, h5, h6 {
 
 article.flashes {
     margin-bottom: 1em;
+}
+
+/* Bookmark list styling */
+
+ul.bookmarks {
+    list-style: none none;
+    padding-left: 0;
+}
+
+ul.bookmarks li {
+    padding-bottom: .5em;
+    border-top: 1px solid #7EA6BF;
+    padding: 1em 0;
+}
+
+a.header {
+    color: #326786;
+    text-decoration: none;
+    display: block
+}
+
+a.header h3 {
+    margin: 0 0;
+}
+
+div.info {
+    font-size: .95em;
+    color: #666666;
+}
+
+/* Edit and delete link in span for each bookmark */
+span.editlinks {
+    float: right;
 }
 
 /* Error styling */
