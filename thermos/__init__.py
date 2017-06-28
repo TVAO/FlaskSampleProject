@@ -7,6 +7,7 @@ import os
 from flask import Flask
 from logging import DEBUG
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -18,12 +19,18 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['DEBUG'] = True
 db = SQLAlchemy(app)
 
+# Configure authentication
+login_manager = LoginManager()
+login_manager.session_protection = "strong"
+login_manager.init_app(app)
+
+# Old Python 2 import
 #import models
 #import views
 
-#from . import models
-#from . import views
+# New Python 3 import
+from . import models
+from . import views
 
-#if __name__ == "__main__":
-#    app.run(debug=True)
+
 

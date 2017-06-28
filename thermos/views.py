@@ -2,12 +2,14 @@
 # Views (i.e. similar to controllers in MVC) used to control HTTP requests and responses
 
 from flask import render_template, redirect, url_for, flash
+from flask_login import login_required
+#from thermos import app, db
+#from forms import BookmarkForm
+#from models import User, Bookmark
+# New Python 3 import
 from . import app, db
 from .forms import BookmarkForm
 from .models import User, Bookmark
-# from thermos import app, db
-#from forms import BookmarkForm
-#from models import User, Bookmark
 
 
 # Fake login
@@ -25,6 +27,7 @@ def index():
 
 
 @app.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     form = BookmarkForm()
     if form.validate_on_submit():  # Check request and validate content
