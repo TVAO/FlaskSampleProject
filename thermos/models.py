@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from .thermos import db
+from thermos import db
 
 
 # Database entities used to generate tables in SQL Alchemy

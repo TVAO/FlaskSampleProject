@@ -16,8 +16,9 @@ app.config["SECRET_KEY"] = b'\x12\x1d\x9c\xfd\x8e\xd5\r\xdb\x81\x99t\x98\x01.2\x
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-from .forms import BookmarkForm
-from .models import Bookmark
+from forms import BookmarkForm
+#from .models import Bookmark
+import models
 
 def new_bookmarks(num):
     return []
@@ -38,7 +39,7 @@ def add():
     if form.validate_on_submit():  # Check request and validate content
         url = form.url.data
         description = form.description.data
-        bm = Bookmark(url=url, description=description)
+        bm = models.Bookmark(url=url, description=description)
         db.session.add(bm)
         flash("Stored '{}'".format(description))
         app.logger.debug('stored url: ' + url)
