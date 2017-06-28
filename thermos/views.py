@@ -4,7 +4,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, login_user, current_user, logout_user
 from thermos import app, db, login_manager
-from forms import BookmarkForm
+from forms import BookmarkForm, LoginForm
 from models import User, Bookmark
 # New Python 3 import
 #from . import app, db, login_manager
@@ -54,12 +54,13 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # Login and validate user
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is not None:
+        user = User.get_by_username(form.username.data)
+        if user is not None and user.check_password(form.password.data):  # Check hash
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
             # Redirect to intended page (e.g. add bookmark page) or index
-            return redirect(request.args.get('next') or url_for('index'))
+            return redirect(request.args.get('next') or url_for('user'),
+                            username=user.username)
         flash('Incorrect username or password.')
     return render_template('login.html', form=form)
 

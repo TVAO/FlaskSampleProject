@@ -40,14 +40,14 @@ class User(db.Model, UserMixin):
         raise AttributeError('password: write-only field')
 
     @password.setter
-    def password(self, password):
+    def password(self, password): # Hash pw
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password): # Check pw against hash
         return check_password_hash(self.password_hash, password)
 
     @staticmethod
-    def get_by_username(username):
+    def get_by_username(username): # Replace filter_by
         return User.query.filter_by(username=username).first()
 
     def __repr__(self):
