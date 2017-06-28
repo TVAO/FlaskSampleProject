@@ -17,8 +17,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 from forms import BookmarkForm
-#from .models import Bookmark
 import models
+
+# Fake login
+def logged_in_user():
+    return models.USer.query.filter_by(username='tvao').first()
 
 
 @app.route('/')
@@ -36,7 +39,7 @@ def add():
     if form.validate_on_submit():  # Check request and validate content
         url = form.url.data
         description = form.description.data
-        bm = models.Bookmark(url=url, description=description)
+        bm = models.Bookmark(user=logged_in_user(), url=url, description=description)
         db.session.add(bm)
         db.session.commit()
         flash("Stored '{}'".format(description))
