@@ -16,6 +16,17 @@
 
         <!-- Info about bookmark (added by who, list of their bookmarks -->
         <div class="info">
+
+            <span class="tags">
+                {% if bookmark.tags %}
+                    {% for t in bookmark._tags %}
+                        <a href="#"> {{ t }} </a>
+                    {% endfor %}
+                {% else %}
+                    No tags.
+                {% endif %}
+            </span>
+
             <br>
 
             Added by <a href="{{ url_for('user', username=bookmark.user.username) }}">
