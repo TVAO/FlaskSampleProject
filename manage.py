@@ -15,24 +15,26 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def insert_data():
     tvao = User(username="tvao", email="tvao@example.com", password="test")
-    db.session.add(reindert)
+    db.session.add(tvao)
 
     def add_bookmark(url, description, tags):
         db.session.add(Bookmark(url=url, description=description, user=tvao,
                                 tags=tags))
 
+    # Add tags
     for name in ["python", "flask", "webdev", "programming", "training", "news", "orm", "databases", "emacs", "gtd", "django"]:
         db.session.add(Tag(name=name))
     db.session.commit()
 
+    # Add tags to bookmarks
     add_bookmark("http://www.pluralsight.com", "Pluralsight. Hardcore developer training.", "training,programming,python,flask,webdev")
     add_bookmark("http://www.python.org", "Python - my favorite language", "python")
     add_bookmark("http://flask.pocoo.org", "Flask: Web development one drop at a time.", "python,flask,webdev")
     add_bookmark("http://www.reddit.com", "Reddit. Frontpage of the internet", "news,coolstuff,fun")
     add_bookmark("http://www.sqlalchemyorg", "Nice ORM framework", "python,orm,databases")
 
-    arjen = User(username="test", email="test@example.com", password="test")
-    db.session.add(arjen)
+    testUser = User(username="test", email="test@example.com", password="test")
+    db.session.add(testUser)
     db.session.commit()
     print 'Initialized the database'
 
