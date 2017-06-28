@@ -2,7 +2,7 @@
 # Views (i.e. similar to controllers in MVC) used to control HTTP requests and responses
 
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_required, login_user, current_user
+from flask_login import login_required, login_user, current_user, logout_user
 from thermos import app, db, login_manager
 from forms import BookmarkForm
 from models import User, Bookmark
@@ -62,6 +62,12 @@ def login():
             return redirect(request.args.get('next') or url_for('index'))
         flash('Incorrect username or password.')
     return render_template('login.html', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.errorhandler(404)
