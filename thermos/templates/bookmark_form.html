@@ -20,7 +20,8 @@ Thermos -- {{ title }}
             <table>
                 {{ render_field(form.url, size=50) }}
                 {{ render_field(form.description, size=50) }}
-                {{ render_field(form.tags, size=50) }}
+                {{ render_field(form.tags, size=50, id="tags") }}
+                <!-- Tags id used for jquery in script below -->
                 <tr class="submit">
                     <td></td>
                     <td> <button type="submit"> Submit </button> </td>
@@ -31,4 +32,14 @@ Thermos -- {{ title }}
 {% endblock %}
 
 {% block sidebar %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"> </script>
+<script>
+    $(document).ready(function() {
+        var _tags = {{ all_tags() | map(attribute='name') | list | tojson | safe }};
+        $('#tags').select2({tags: _tags, tokenSeparators: [",", " "]});
+    });
+</script>
 {% endblock %}
