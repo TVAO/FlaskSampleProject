@@ -18,9 +18,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['DEBUG'] = True
 db = SQLAlchemy(app)
 
-import models
-import views
+#import models
+#import views
 
+#from . import models
+#from . import views
 
-
+#if __name__ == "__main__":
+#    app.run(debug=True)
 

@@ -4,10 +4,12 @@
 from datetime import datetime
 from sqlalchemy import desc
 from thermos import db
+# from . import db
 
 
 # Database entities used to generate tables in SQL Alchemy
 class Bookmark(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)

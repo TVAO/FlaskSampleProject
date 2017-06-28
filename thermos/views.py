@@ -2,9 +2,12 @@
 # Views (i.e. similar to controllers in MVC) used to control HTTP requests and responses
 
 from flask import render_template, redirect, url_for, flash
-from thermos import app, db
-from forms import BookmarkForm
-from models import User, Bookmark
+from . import app, db
+from .forms import BookmarkForm
+from .models import User, Bookmark
+# from thermos import app, db
+#from forms import BookmarkForm
+#from models import User, Bookmark
 
 
 # Fake login
