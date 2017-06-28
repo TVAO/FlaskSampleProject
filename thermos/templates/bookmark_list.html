@@ -1,0 +1,30 @@
+
+<ul class="bookmarks">
+    {% for bookmark in bookmarks %}
+
+    <li>
+        <!-- Bookmark tag and description -->
+        <a class="header" href="{{ bookmark.url }}">
+            <h3 class="description">
+                <!-- Filter used to transform description -->
+                {{ bookmark.description | truncate(50, killwords=True) }}
+            </h3>
+            <span class="url">
+                {{ bookmark.url | truncate(50, killwords=True) }}
+            </span>
+        </a>
+
+        <!-- Info about bookmark (added by who, list of their bookmarks -->
+        <div class="info">
+            <br>
+
+            Added by <a href="{{ url_for('user', username=bookmark.user.username) }}">
+                {{ bookmark.user.username }}
+        </a>
+            <!-- Call JS moment library to present nice date format -->
+            {{ moment(bookmark.date).fromNow() }}.
+        </div>
+    </li>
+
+    {% endfor %}
+</ul>
