@@ -1,13 +1,14 @@
+
 {% extends "base.html" %}
 {% from "form_macros.html" import render_field %}
 
 {% block title %}
-Thermos -- Add a URL
+Thermos -- {{ title }}
 {% endblock %}
 
 {% block content %}
     <section>
-        <h1> Add a new URL </h1>
+        <h1> {{ title }} </h1>
         <form action="" method="post">
             {{ form.hidden_tag() }} <!-- Hidden token against CSRF -->
             <table>
