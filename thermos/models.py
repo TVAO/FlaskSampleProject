@@ -27,7 +27,8 @@ class Bookmark(db.Model):
     # Bookmark relation with tags, use junction 'tags', add 'bookmarks' attribute on tags
     # On retrieving bookmarks, we retrieve tags immediately too
     # Do not access this from other classes (_tags)
-    _tags = db.relationship('Tag', secondary=tags,
+    # Tag models associated with bookmark are joined immediately (lazy='joined')
+    _tags = db.relationship('Tag', secondary=tags, lazy='joined',
                             backref=db.backref('bookmarks', lazy='dynamic'))
 
     @staticmethod
