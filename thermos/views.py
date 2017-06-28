@@ -47,8 +47,8 @@ def add():
 def edit_bookmark(bookmark_id):
     bookmark = Bookmark.query.get_or_404(bookmark_id)
     if current_user != bookmark.user:
-        abort(403)
-    form = BookmarkForm(obj=bookmark)
+        abort(403)  # Forbidden
+    form = BookmarkForm(obj=bookmark) # Prefill from db if no data
     if form.validate_on_submit():
         form.populate_obj(bookmark)
         db.session.commit()
