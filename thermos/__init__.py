@@ -30,12 +30,12 @@ login_manager.init_app(app)
 moment = Moment(app)
 
 # Old Python 2 import
-#import models
-#import views
+import models
+import views
 
 # New Python 3 import
-from . import models
-from . import views
+#from . import models
+#from . import views
 
 
 
