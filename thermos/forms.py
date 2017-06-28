@@ -1,4 +1,6 @@
 
+# HTML form objects used to retrieve and post user data
+
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField
 from wtforms.fields.html5 import URLField

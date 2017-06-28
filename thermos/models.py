@@ -1,12 +1,12 @@
 
+# Models in database layer
+
 from datetime import datetime
-from thermos import db
 from sqlalchemy import desc
+from thermos import db
 
 
 # Database entities used to generate tables in SQL Alchemy
-
-
 class Bookmark(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Text, nullable=False)
@@ -27,7 +27,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(80), unique=True)
-    # Work with user objects and load dynamically
+    # Work with user objects and load dynamically (lazy query to load bookmarks)
     bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
 
     def __repr__(self):
