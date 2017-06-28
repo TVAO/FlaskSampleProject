@@ -57,6 +57,22 @@ def edit_bookmark(bookmark_id):
     return render_template('bookmark_form.html', form=form, title="Edit bookmark")
 
 
+@app.route('/delete/<int:bookmark_id>', methods=['GET', 'POST'])
+@login_required
+def delete_bookmark(bookmark_id):
+    bookmark = Bookmark.query.get_or_404(bookmark_id)
+    if current_user != bookmark.user:
+        abort(403)
+    if request.method == "POST":
+        db.session.delete(bookmark)
+        db.session.commit()
+        flash("Deleted '{}'".format(bookmark.description))
+        return redirect(url_for('user', username=current_user.username))
+    else:
+        flash("Please confirm deleting the bookmark.")
+    return render_template('confirm_delete.html', bookmark=bookmark, nolinks=True)
+
+
 @app.route('/user/<username>')
 def user(username):
     # Fetch user and return or 404
@@ -119,6 +135,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     return render_template('500.html'), 500
+
 
 # Make tags available in all templates
 # Executed before each template render
