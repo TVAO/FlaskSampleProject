@@ -24,6 +24,11 @@ class Bookmark(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     description = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # Bookmark relation with tags, use junction 'tags', add 'bookmarks' attribute on tags
+    # On retrieving bookmarks, we retrieve tags immediately too
+    # Do not access this from other classes (_tags)
+    _tags = db.relationship('Tag', secondary=tags,
+                            backref=db.backref('bookmarks', lazy='dynamic'))
 
     @staticmethod
     def newest(num):
