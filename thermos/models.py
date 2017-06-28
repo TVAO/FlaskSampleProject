@@ -4,7 +4,8 @@ from thermos import db
 
 # Database entities used to generate tables in SQL Alchemy
 
-class Bookmark(db.Model)
+
+class Bookmark(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
@@ -13,6 +14,7 @@ class Bookmark(db.Model)
     # Clear printing and logging of values
     def __repr__(self):
         return "<Bookmark '{}': '{}'>".format(self.description, self.url)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
